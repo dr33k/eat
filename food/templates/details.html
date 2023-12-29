@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<main style="padding:10px; font-family=serif">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-fluid img-thumbnail" src="{{item.image}}" height="300px"/>
+            </div>
+            <div class="col-md-6">
+                <h1 xmlns="http://www.w3.org/1999/html"> {{item.name}} </h1>
+                </br>
+                <p><strong>{{item.desc}}</strong></p>
+                <h2>${{item.price}}</h2>
+                <a class="btn btn-primary" href="{% url 'food:edit' item.id %}">Modify</a>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-dialog">Remove</button>
+
+                <div id="delete-dialog" tabindex="-1" class="modal fade" role="dialog">
+                    <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <form method="post" action="{% url 'food:delete' item.id %}">
+                                    {% csrf_token %}
+                                <div class="modal-header">
+                                    <h5>Delete</h5>
+                                    <button class="close" data-bs-dismiss="modal" aria-label="Close" type="button">
+                                        <span aria-label="Close button">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <label for="del-btn"> You are about to delete {{item.name}}</label>
+                                </div>
+                                <div class="modal-footer">
+                                    <input id="del-btn" type="submit" class="btn btn-danger" value="Confirm"/>
+                                </div>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+{% endblock %}

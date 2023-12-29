@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block body%}
+<main class="container " style="margin-top:5%">
+    <div class="row justify-content-center align-items-center">
+        <form class="form col-md-6 col-lg-4 card rounded" action="{% url 'food:create' %}" method="post">
+            <div class="card-content">
+                <div class="card-header bg-info text-white row">Add Item</div>
+                <div class="card-body">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label for="{{field.name}}" class="form-label uppercase">{{field.name}}</label>
+                        <div id="{{field.name}}">{{field}}</div>
+                        <p>{{field.error.message}}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="card-footer row justify-content-end">
+                    <input class="col-md-3 btn btn-info text-white" type="submit" value="Add"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
